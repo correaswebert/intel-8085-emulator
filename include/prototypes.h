@@ -1,3 +1,6 @@
+#ifndef PROTOTYPES
+#define PROTOTYPES
+
 #include "instruction_struct.h"
 
 /* int can be:
@@ -8,3 +11,5 @@ instruction getOpcode(int);
 
 /* check for datatype of 1 byte opcode */
 enum datatype getDatatype(char);
+
+#endif // PROTOTYPES

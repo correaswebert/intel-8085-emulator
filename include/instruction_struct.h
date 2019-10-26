@@ -1,3 +1,6 @@
+#ifndef INSTRUCTION_STRUCT
+#define INSTRUCTION_STRUCT
+
 /* ???
  * how to handle 2 byte data
  * FIX
@@ -27,3 +30,5 @@ typedef struct instruction
         uint16_t two;
     } bytes;
 } instruction;
+
+#endif // INSTRUCTION_SET

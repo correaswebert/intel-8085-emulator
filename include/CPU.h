@@ -1,5 +1,8 @@
 #include <stdint.h>
 
+#ifndef CPU
+#define CPU
+
 /* registers
  * pairs -> BC DE HL
  * A(ccumulator) F(lag)
@@ -48,3 +51,5 @@ const unint8_t P_MASK  = 00000100;
 const unint8_t AC_MASK = 00010000;
 const unint8_t Z_MASK  = 01000000;
 const unint8_t S_MASK  = 10000000;
+
+#endif // CPU

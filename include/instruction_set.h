@@ -1,3 +1,6 @@
+#ifndef INSTRUCTION_SET
+#define INSTRUCTION_SET
+
 uint8_t hexcodes[] = {
     /* immediate addressing mode */
     206,    /* CE */    "ACI",
@@ -283,3 +286,5 @@ uint8_t hexcodes[] = {
     174,    /* AE */    "XRA_M",
     227     /* E3 */    "XTHL"
 }
+
+#endif // INSTRUCTION_SET
