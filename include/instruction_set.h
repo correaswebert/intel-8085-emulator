@@ -1,4 +1,4 @@
-int hexcodes[] = {
+uint8_t hexcodes[] = {
     /* immediate addressing mode */
     206,    /* CE */    "ACI",
     198,    /* C6 */    "ADI",

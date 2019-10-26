@@ -19,11 +19,11 @@ enum datatype {VOID, DATA1, DATA2, ADDR, ERR};
  */
 typedef struct instruction
 {
-    char opcode;
+    uint8_t opcode;
     enum datatype type;
     union bytes
     {
-        char one;
-        short int two;
+        uint8_t one;
+        uint16_t two;
     } bytes;
 } instruction;

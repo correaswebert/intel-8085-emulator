@@ -1,8 +1,10 @@
+#include <stdint.h>
+
 /* registers
  * pairs -> BC DE HL
  * A(ccumulator) F(lag)
  */
-char A, B, C, D, E, F, H, L;
+uint8_t A, B, C, D, E, F, H, L;
 // psw => A higher, F lower
 
 /* Flag -> |  S |  Z |  X | AC |  X |  P |  X | CY |
@@ -33,16 +35,16 @@ char A, B, C, D, E, F, H, L;
  * Main program's current instruction location is saved here
  * so that on return it can resume the Main program
  */
-short int stack_ptr;
+uint16_t stack_ptr;
 
 /* program counter
  * this register stores the address of current instruction (opcode)
  * on completion of instruction, it auto-increments
  */
-short int prog_cntr;
+uint16_t prog_cntr;
 
-const char CY_MASK = 00000001;
-const char P_MASK  = 00000100;
-const char AC_MASK = 00010000;
-const char Z_MASK  = 01000000;
-const char S_MASK  = 10000000;
+const unint8_t CY_MASK = 00000001;
+const unint8_t P_MASK  = 00000100;
+const unint8_t AC_MASK = 00010000;
+const unint8_t Z_MASK  = 01000000;
+const unint8_t S_MASK  = 10000000;

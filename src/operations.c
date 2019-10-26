@@ -1,3 +1,5 @@
+#include "prototypes.h"
+
 switch (inst.opcode)
 {
     // ADD reg.
@@ -127,6 +129,10 @@ switch (inst.opcode)
     // SBI data
     case 222:
         sub(inst.bytes.one, 1);
+        break;
+
+    // INR reg.
+    case 60:
         break;
 
     default:
