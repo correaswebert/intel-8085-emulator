@@ -1,12 +1,7 @@
-/* get operation
- * now perform accordingly
- */
-
-#include "instruction_struct.h"
 #include "prototypes.h"
 
-do
+int main(int argc, char const *argv[])
 {
-    instruction inst;
-    int x = 0;
-} while (inst.opcode != 76);
+    
+    return 0;
+}
