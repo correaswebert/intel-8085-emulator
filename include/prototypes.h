@@ -13,6 +13,9 @@
 // pointer to 2^16 bytes storage
 uint8_t *memory;
 
+/* load user code in the memory, starting from the given address */
+void loadCode(int, uint16_t);
+
 /* arg int can be:
  * - File Descriptor
  * - Alias for stdin

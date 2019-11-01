@@ -31,9 +31,9 @@ uint8_t A, B, C, D, E, F, H, L;
 /* stack pointer 
  * it points to the top of the stack, where data exists
  * hence the top of the stack always has meaningless data initially
- * 8085 has a reverse stack, hence SP starts at 0xFF
+ * 8085 has a reverse stack, hence SP starts at 0xFFFF
  */
-uint16_t stack_ptr = 0xff;
+uint16_t stack_ptr = 0xffff;
 
 /* program counter
  * this register stores the address of current instruction (opcode)

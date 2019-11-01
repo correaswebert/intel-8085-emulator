@@ -46,7 +46,7 @@ void increment(uint8_t *reg1, uint8_t *reg2)
     {
         if (*reg1 & 0xff)
             isCarrySet = 1;
-        *reg1++;
+        *reg1 = *reg1 + 1;
     }
 
     // INX
@@ -78,7 +78,7 @@ void decrement(uint8_t *reg1, uint8_t *reg2)
         // and cannot be accessible after the if statement...
         if (*reg1 & 0xff)
             isCarrySet = 1;
-        *reg1--;
+        *reg1 = *reg1 - 1;
     }
 
     // DCX

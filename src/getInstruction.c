@@ -11,7 +11,8 @@ instruction getInstruction(int fd)
     instruction inst;
 
     /* read opcode (1byte) */
-    read(fd, &inst.opcode, 1);
+    // read(fd, &inst.opcode, 1);
+    inst.opcode = memory[prog_cntr++];
 
     /* if opcode is invalid, set type to ERR */
     inst.type = numberBytesToRead(inst.opcode);
@@ -20,11 +21,13 @@ instruction getInstruction(int fd)
     switch (inst.type)
     {
         case BYTES1:
-            read(fd, inst.bytes.one, 1);
+            // read(fd, inst.bytes.one, 1);
+            inst.bytes.one = memory[prog_cntr++];
             break;
         
         case BYTES2:
-            read(fd, inst.bytes.two, 2);
+            // read(fd, inst.bytes.two, 2);
+            inst.bytes.two = (memory[prog_cntr++] << 8) | memory[prog_cntr++];
             break;
         
         /* BYTES0 and ERR do nothing */
@@ -33,4 +36,47 @@ instruction getInstruction(int fd)
     }
     
     return inst;
+}
+
+
+void loadCode(int fd, uint16_t prog_addr)
+{
+    prog_cntr = prog_addr;
+    
+    uint8_t opcode, type, one;
+    uint16_t two;
+
+
+    char next;
+    while (opcode != 0x76)
+    {
+        /* read opcode (1byte) */
+        read(fd, &opcode, 1);
+        memory[prog_addr++] = opcode;
+
+        /* if opcode is invalid, set type to ERR */
+        type = numberBytesToRead(opcode);
+
+        /* according to datatype, read 1 or 2 bytes */
+        switch (type)
+        {
+            case BYTES1:
+                read(fd, &one, 1);
+                memory[prog_addr++] = one;
+                break;
+            
+            case BYTES2:
+                read(fd, &two, 2);
+                memory[prog_addr++] = two >> 8;
+                memory[prog_addr++] = two;
+                break;
+            
+            /* BYTES0 and ERR do nothing */
+            default:
+                break;
+        }
+
+        printf("opcode: %x\none:    %x\ntwo:    %x\n\n", opcode, one, two);
+        scanf("%c", &next);
+    }
 }

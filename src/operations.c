@@ -287,16 +287,14 @@ uint8_t performInstruction(instruction inst)
 
         // LHLD
         case 0x2A:
-            L = memory[inst.bytes.two & 0xff];
-            inst.bytes.two >>= 8;
-            H = memory[inst.bytes.two & 0xff];
+            L = memory[inst.bytes.two++];
+            H = memory[inst.bytes.two];
             break;
 
         // SHLD
         case 0x22:
-            memory[inst.bytes.two & 0xff] = L;
-            inst.bytes.two >>= 8;
-            memory[inst.bytes.two & 0xff] = H;
+            memory[inst.bytes.two++] = L;
+            memory[inst.bytes.two] = H;
             break;
 
         // XCHG

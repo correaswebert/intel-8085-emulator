@@ -11,7 +11,7 @@ OBJECT = $(patsubst %, $(BUILD)/%, $(notdir $(SOURCE:.c=.o)))
 
 
 CC = gcc
-CFLAGS = -Wall -I$(INC)
+CFLAGS = -Wall -I$(INC) -std=c11
 
 # $@ evaluates to 'target' bin/main $(BIN)/$(TARGET)
 # $^ evaluates to 'dependency' $(OBJECT)
@@ -26,4 +26,4 @@ $(BUILD)/%.o: $(SRC)/%.c
 .PHONY: clean
 
 clean:
-	rm build/*.o bin/*
+	rm -f build/*.o bin/*
