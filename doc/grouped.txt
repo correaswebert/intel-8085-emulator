@@ -224,6 +224,7 @@ Logical Group.
     47,     /* 2F */    "CMA",
     63,     /* 3F */    "CMC",
     55,     /* 37 */    "STC",
+    
 Branch Control Group.
     195,    /* C3 */    "JMP",
     194,    /* C2 */    "JNZ",

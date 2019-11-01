@@ -1,24 +1,14 @@
 #ifndef INSTRUCTION_STRUCT
 #define INSTRUCTION_STRUCT
 
-/* ???
- * how to handle 2 byte data
- * FIX
- * 1. create a flag for addr to be treated as data
- * 2. create new datatype -> long data
- */
+#include <stdint.h>
 
-/* VOID for 0 byte data
- * DATA1 for 1 byte data
- * DATA2 for 2 byte data
- * ADDR for 2 bytes
- * ERR if opcode invalid
- */
-enum datatype {VOID, DATA1, DATA2, ADDR, ERR};
+enum datatype {BYTES0, BYTES1, BYTES2, ERR};
 
 /* instruction should contain:
- *      1. Opcode
- *      2. Data/Address
+ * - Opcode
+ * - Type
+ * - Data/Address
  */
 typedef struct instruction
 {
