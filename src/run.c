@@ -24,12 +24,12 @@ int toHex(const char *string)
 
 void printCPU()
 {
-    printf("A: 0x%2x    B: 0x%2x    D: 0x%2x    H: 0x%2x\n", A, B, D, H);
-    printf("F: 0x%2x    C: 0x%2x    E: 0x%2x    L: 0x%2x\n", F, C, E, L);
+    printf("A: 0x%02x    B: 0x%02x    D: 0x%02x    H: 0x%02x\n", A, B, D, H);
+    printf("F: 0x%02x    C: 0x%02x    E: 0x%02x    L: 0x%02x\n", F, C, E, L);
     printf("\n");
 
-    printf("PC: 0x%4x\n", prog_cntr);
-    printf("SP: 0x%4x\n", stack_ptr);
+    printf("PC: 0x%04x\n", prog_cntr);
+    printf("SP: 0x%04x\n", stack_ptr);
     printf("\n");
 
     printf("S%c\t",  (F & S_MASK)  ? '*' : 0);
@@ -66,12 +66,6 @@ int main(int argc, char const *argv[])
     instruction inst;
     uint8_t state = CONTINUE;
     memory = (uint8_t *) malloc(65536);
-
-    uint16_t prog_cntr = toHex(argv[2]);
-    // if (argv[2][0] == '-')
-    //     prog_cntr = 0x0000;
-    // else
-    //     prog_cntr = atoi(argv[2]);
     
     printf("Do you want to initialize memory with data? (0/1)\n>>> ");
     scanf("%d", &next);
@@ -93,6 +87,13 @@ int main(int argc, char const *argv[])
             memory[toHex(addr)] = toHex(data);
         }
     }
+
+    uint16_t prog_cntr = toHex(argv[2]);
+    // printf("%s %04x", argv[2], toHex(argv[2]));
+    // if (argv[2][0] == '-')
+    //     prog_cntr = 0x0000;
+    // else
+    //     prog_cntr = atoi(argv[2]);
     
     system("clear");
     printf("Intializing CPU...\n");
@@ -125,9 +126,9 @@ int main(int argc, char const *argv[])
             if (inst.type == BYTES0)
                 printf("instruction:  %s\n", opcodes[inst.opcode]);
             else if (inst.type == BYTES1)
-                printf("instruction:  %s  %xH\n", opcodes[inst.opcode], inst.bytes.one);
+                printf("instruction:  %s  %02xH\n", opcodes[inst.opcode], inst.bytes.one);
             else if (inst.type == BYTES2)
-                printf("instruction:  %s  %xH\n", opcodes[inst.opcode], inst.bytes.two);
+                printf("instruction:  %s  %04xH\n", opcodes[inst.opcode], inst.bytes.two);
             
             printCPU();
             printf("------------------------------------------\n");
