@@ -2,3 +2,5 @@ build/**
 bin/**
 .vscode/**
 a.out
+rc
+wc

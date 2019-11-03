@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include "CPU.h"
 #include "prototypes.h"
 
 

@@ -91,7 +91,7 @@ enum datatype numberBytesToRead(uint8_t opcode)
             case 0x11:      // "LXI_D"
             case 0x21:      // "LXI_H"
             case 0x31:      // "LXI_SP"
-                return BYTES0;
+                return BYTES2;
 
             case 0x3A:      // "LDA"
             case 0x32:      // "STA"
@@ -99,7 +99,7 @@ enum datatype numberBytesToRead(uint8_t opcode)
 
             case 0x2A:      // "LHLD"
             case 0x22:      // "SHLD"
-                return BYTES0;
+                return BYTES2;
 
             case 0x0A:      // "LDAX_B"
             case 0x1A:      // "LDAX_D"
