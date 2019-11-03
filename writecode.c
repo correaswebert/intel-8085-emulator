@@ -7,19 +7,47 @@
 #include <errno.h>
 #include <stdio.h>
 
-int main() {
-    int fd = open("/home/swebert/Documents/correaswebert/8085-Simulator/code.txt", O_RDWR);
+#include <string.h>
+#include <math.h>
+
+int toHex(const char *string)
+{
+    int len = strlen(string), num = 0, i = len;
+    char ch;
+
+    while((ch = string[--i]) != '\0')
+    {
+        if ('0' <= ch && ch <= '9')
+            num += pow(16, len - i - 1) * (ch - '0');
+        else if ('A' <= ch && ch <= 'F')
+            num += pow(16, len - i - 1) * (ch - 'A' + 10);
+        else if ('a' <= ch && ch <= 'f')
+            num += pow(16, len - i - 1) * (ch - 'a' + 10);
+    }
+    
+    return num;
+}
+
+int main(int argc, char *argv[]) {
+    int fd;
+    if (argc == 2)
+        fd = open(argv[1], O_WRONLY|O_CREAT);
+    else
+        fd = open("/home/swebert/Documents/correaswebert/8085-Simulator/code.txt", O_WRONLY|O_CREAT, S_IRUSR|S_IWUSR);
 
     if (fd == -1) {
         perror("open failed");
         return errno;
     }
     
-    int hexcode;
-    while (hexcode != -1) {
-        scanf("%d", &hexcode);
-        printf("0x%x\n", hexcode);
-        write(fd, &hexcode, 1);
+    char chexcode[3];
+    int ihexcode;
+    while (1) {
+        scanf("%s", chexcode);
+        ihexcode = toHex(chexcode);
+        if (ihexcode == 256)
+            break;
+        write(fd, &ihexcode, 1);
     }
     
     close(fd);

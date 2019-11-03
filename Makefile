@@ -15,8 +15,8 @@ CFLAGS = -Wall -I$(INC) -std=c11
 
 # $@ evaluates to 'target' bin/main $(BIN)/$(TARGET)
 # $^ evaluates to 'dependency' $(OBJECT)
-$(BIN)/$(TARGET): $(OBJECT)
-	$(CC) -o $@ $^
+$(BIN)/$(TARGET): src/run.c src/compilation.c
+	$(CC) $(CFLAGS) -o $@ src/run.c -lm
 
 # $< evaluates to first name in 'dependencies' $(SRC)/%.c
 $(BUILD)/%.o: $(SRC)/%.c

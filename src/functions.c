@@ -37,7 +37,7 @@ void subtract(uint8_t reg, uint8_t withBorrow)
 
 void increment(uint8_t *reg1, uint8_t *reg2)
 {
-    uint8_t isCarrySet, isSetAuxCarry = checkAuxCarry(A, *reg1);
+    uint8_t isCarrySet = 0, isSetAuxCarry = checkAuxCarry(A, *reg1), isZeroSet = 0;
 
     // INR
     if (reg2 == NULL)
@@ -45,6 +45,8 @@ void increment(uint8_t *reg1, uint8_t *reg2)
         if (*reg1 & 0xff)
             isCarrySet = 1;
         *reg1 = *reg1 + 1;
+        if (*reg1 == 0)
+            isZeroSet = 1;
     }
 
     // INX
@@ -54,18 +56,22 @@ void increment(uint8_t *reg1, uint8_t *reg2)
         regpair |= *reg2;
 
         regpair++;
+        if(regpair == 0)
+            isZeroSet = 1;
+            
         *reg2 = (uint8_t) regpair;
         regpair >>=4;
         *reg1 = (uint8_t) regpair;
     }
 
     adjustFlags(isCarrySet, isSetAuxCarry);
+    updateFlags(-1, isZeroSet, -1, -1, -1);
 }
 
 
 void decrement(uint8_t *reg1, uint8_t *reg2)
 {
-    uint8_t isCarrySet, isAuxCarrySet = checkAuxCarry(A, *reg1);
+    uint8_t isCarrySet = -1, isAuxCarrySet = checkAuxCarry(A, *reg1), isZeroSet = 0;
 
     // DCR
     if (reg2 == NULL)
@@ -77,6 +83,8 @@ void decrement(uint8_t *reg1, uint8_t *reg2)
         if (*reg1 & 0xff)
             isCarrySet = 1;
         *reg1 = *reg1 - 1;
+        if(*reg1 == 0)
+            isZeroSet = 1;
     }
 
     // DCX
@@ -87,12 +95,16 @@ void decrement(uint8_t *reg1, uint8_t *reg2)
         regpair |= *reg2;
 
         regpair--;
+        if (regpair == 0)
+            isZeroSet = 1;
+        
         *reg2 = (uint8_t) regpair;
         regpair >>=4;
         *reg1 = (uint8_t) regpair;
     }
 
     adjustFlags(isCarrySet, isAuxCarrySet);
+    updateFlags(-1, isZeroSet, -1, -1, -1);
 }
 
 

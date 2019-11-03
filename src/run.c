@@ -62,6 +62,7 @@ int main(int argc, char const *argv[])
         return errno;
     }
     
+    char next;
     instruction inst;
     uint8_t state = CONTINUE;
     memory = (uint8_t *) malloc(65536);
@@ -72,16 +73,37 @@ int main(int argc, char const *argv[])
     // else
     //     prog_cntr = atoi(argv[2]);
     
+    printf("Do you want to initialize memory with data? (0/1)\n>>> ");
+    scanf("%d", &next);
+    if (next)
+    {
+        char addr[5], data[3];
+        
+        printf("Enter ADDR <ENTER> DATA\n");
+        printf("Enter (ADDR = -1) to exit\n\n");
+        while (1)
+        {
+            scanf("%s", addr);
+            if (strcmp("-1", addr) == 0)
+                break;
+            
+            scanf("%s", data);
+            printf("\n");
+
+            memory[toHex(addr)] = toHex(data);
+        }
+    }
+    
+    system("clear");
     printf("Intializing CPU...\n");
     printCPU();
 
     printf("Loading code...\n");
     loadCode(fd, prog_cntr);
     printf("Code loaded!\n\n");
-    char next = 4;
 
-    uint8_t hexcode;
-    uint16_t prog_addr = prog_cntr;    
+    // uint8_t hexcode;
+    // uint16_t prog_addr = prog_cntr;
 
     int stepwise = 0;
     printf("Do you want to go step-wise? (0/1)\n>>> ");
@@ -91,8 +113,8 @@ int main(int argc, char const *argv[])
 
     while (state == CONTINUE)
     {
-        // if (stepwise)
-        //     scanf("%c", &next);
+        if (stepwise)
+            scanf("%c", &next);
 
         inst = getInstruction(fd);
         state = performInstruction(inst);
@@ -101,23 +123,24 @@ int main(int argc, char const *argv[])
         {
             system("clear");
             if (inst.type == BYTES0)
-                printf("instruction:  %2x          \n", inst.opcode);
+                printf("instruction:  %s\n", opcodes[inst.opcode]);
             else if (inst.type == BYTES1)
-                printf("instruction:  %2x  %2x     \n", inst.opcode, inst.bytes.one);
+                printf("instruction:  %s  %xH\n", opcodes[inst.opcode], inst.bytes.one);
             else if (inst.type == BYTES2)
-                printf("instruction:  %2x  %2x  %2x\n", inst.opcode, inst.bytes.two & 0xff, (inst.bytes.two >> 8) & 0xff);
+                printf("instruction:  %s  %xH\n", opcodes[inst.opcode], inst.bytes.two);
             
             printCPU();
             printf("------------------------------------------\n");
-            scanf("%c", &next);
+            // scanf("%c", &next);
         }
         
         prog_cntr++;
     }
 
-    system("clear");
+    if (!stepwise)
+        printCPU();
+
     printf("Final State...\n");
-    printCPU();
     
     free(memory);
     close(fd);

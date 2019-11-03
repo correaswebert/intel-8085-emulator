@@ -12,6 +12,7 @@ uint8_t performInstruction(instruction inst)
         // MVI
         case 0x3E:
             A = inst.bytes.one;
+            adjustFlags(-1, -1);
             break;
         case 0x06:
             B = inst.bytes.one;
@@ -38,27 +39,35 @@ uint8_t performInstruction(instruction inst)
         // MOV A, R
         case 0x7F:
             A = A;
+            adjustFlags(-1, -1);
             break;
         case 0x78:
             A = B;
+            adjustFlags(-1, -1);
             break;
         case 0x79:
             A = C;
+            adjustFlags(-1, -1);
             break;
         case 0x7A:
             A = D;
+            adjustFlags(-1, -1);
             break;
         case 0x7B:
             A = E;
+            adjustFlags(-1, -1);
             break;
         case 0x7C:
             A = H;
+            adjustFlags(-1, -1);
             break;
         case 0x7D:
             A = L;
+            adjustFlags(-1, -1);
             break;
         case 0x7E:
             A = M;
+            adjustFlags(-1, -1);
             break;
 
         // MOV B, R

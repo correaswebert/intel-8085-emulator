@@ -11,3 +11,4 @@
 #include "getNumberOfBytes.c"
 #include "functions.c"
 #include "operations.c"
+#include "hex2mneumonic.h"
