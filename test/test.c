@@ -1,12 +1,15 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdint.h>
+
+void incr(uint16_t *num) {
+    *num = *num + 1;
+}
 
 int main() {
-    char data[3];
-    scanf("%s", data);
-    scanf("%s", data);
-    printf("%s\n", data);
-    if(!strcmp("-1", data))
-        printf("Equal!\n");
+    uint8_t x = 1;
+    printf("x = %d\n", x);
+    incr((uint16_t *) &x);
+    printf("x = %d\n", x);
     return 0;
 }

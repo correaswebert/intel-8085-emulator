@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     if (argc == 2)
         fd = open(argv[1], O_WRONLY|O_CREAT);
     else
-        fd = open("/home/swebert/Documents/correaswebert/8085-Simulator/code.txt", O_WRONLY|O_CREAT, S_IRUSR|S_IWUSR);
+        fd = open("/home/swebert/Documents/correaswebert/8085-Simulator/codes/code.asm", O_WRONLY|O_CREAT, S_IRUSR|S_IWUSR);
 
     if (fd == -1) {
         perror("open failed");

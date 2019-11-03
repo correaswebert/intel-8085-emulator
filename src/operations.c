@@ -476,7 +476,7 @@ uint8_t performInstruction(instruction inst)
             increment(&H, &L);
             break;
         case 0x33:
-            increment(&memory[stack_ptr + 1], &memory[stack_ptr]);
+            stack_ptr = stack_ptr + 1;
             break;
 
         // DCR reg.
@@ -515,7 +515,11 @@ uint8_t performInstruction(instruction inst)
             decrement(&H, &L);
             break;
         case 0x3B:
-            decrement(&memory[stack_ptr + 1], &memory[stack_ptr]);
+            stack_ptr = stack_ptr - 1;
+            // update flags
+            // FIX: void adjustFlags(uint16_t *reg);
+            // if NULL then A
+            // cast if single register needed
             break;
 
         case 0x09:

@@ -40,6 +40,11 @@ void printCPU()
     printf("\n");
 }
 
+void viewMemory(uint16_t addr)
+{
+
+}
+
 
 int main(int argc, char const *argv[])
 {
@@ -67,24 +72,41 @@ int main(int argc, char const *argv[])
     uint8_t state = CONTINUE;
     memory = (uint8_t *) malloc(65536);
     
+    system("clear");
     printf("Do you want to initialize memory with data? (0/1)\n>>> ");
-    scanf("%d", &next);
-    if (next)
+    scanf("%c", &next);
+    if (next == '1')
     {
-        char addr[5], data[3];
+        char strAddr[5], strData[3];
+        uint16_t hexAddr;
         
         printf("Enter ADDR <ENTER> DATA\n");
-        printf("Enter (ADDR = -1) to exit\n\n");
         while (1)
         {
-            scanf("%s", addr);
-            if (strcmp("-1", addr) == 0)
+            system("clear");
+            printf("%04xH : %02x\n\n", hexAddr, memory[hexAddr]);
+
+            printf("Enter (ADDR = p) for prev addr\n");
+            printf("Enter (ADDR = n) for next addr\n");
+            printf("Enter (ADDR = q) to quit\n\n");
+
+            printf("addr >>> ");
+            scanf("%s", strAddr);
+
+            if (strcmp("q", strAddr) == 0)
                 break;
+            else if (strcmp("p", strAddr) == 0)
+                hexAddr--;
+            else if (strcmp("n", strAddr) == 0)
+                hexAddr++;
+            else
+                hexAddr = toHex(strAddr);
             
-            scanf("%s", data);
+            printf("data >>> ");
+            scanf("%s", strData);
             printf("\n");
 
-            memory[toHex(addr)] = toHex(data);
+            memory[hexAddr] = toHex(strData);
         }
     }
 
@@ -142,6 +164,27 @@ int main(int argc, char const *argv[])
         printCPU();
 
     printf("Final State...\n");
+
+    int inext;
+    printf("Do you wish to view memory? (0/1)\n>>> ");
+    scanf("%d", &inext);
+
+    if (inext)
+    {
+        char saddr[5] = "";
+        uint16_t haddr;
+        while (strcmp("-1", saddr))
+        {
+            system("clear");
+            printCPU();
+            haddr = toHex(saddr);
+        // printf("saddr: %s\n", saddr);
+            printf("%04xH : %02x\n\n", haddr, memory[haddr]);
+
+            printf("Enter address\n>>> ");
+            scanf("%s", saddr);
+        }
+    };
     
     free(memory);
     close(fd);

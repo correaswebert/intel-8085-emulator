@@ -83,7 +83,7 @@ int fd;
     if (argc > 1)
         fd = open(argv[1], O_RDONLY);
     else
-        fd = open("/home/swebert/Documents/correaswebert/8085-Simulator/code.txt", O_RDONLY);
+        fd = open("/home/swebert/Documents/correaswebert/8085-Simulator/codes/code.asm", O_RDONLY);
     
     if (fd == -1) {
         perror("open failed");

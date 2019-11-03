@@ -107,6 +107,12 @@ void decrement(uint8_t *reg1, uint8_t *reg2)
     updateFlags(-1, isZeroSet, -1, -1, -1);
 }
 
+void decr(uint16_t *reg)
+{
+    *reg = *reg - 1;
+    updateFlags(-1, (*reg == 0), -1, -1, -1);
+}
+
 
 void decimalAdjustAcc()
 {
