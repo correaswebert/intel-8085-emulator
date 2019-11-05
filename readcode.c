@@ -45,7 +45,7 @@ int printInstruction(int fd, int prog_addr)
         if (next == 0)
             return 0;
 
-        printf("%4x : ", prog_addr);
+        printf("%04x : ", prog_addr);
         prog_addr++;
 
         /* if opcode is invalid, set type to ERR */
@@ -72,9 +72,9 @@ int printInstruction(int fd, int prog_addr)
         if (inst.type == BYTES0)
             printf("%s\n", opcodes[inst.opcode]);
         else if (inst.type == BYTES1)
-            printf("%s %xH\n", opcodes[inst.opcode], inst.bytes.one);
+            printf("%s %02xH\n", opcodes[inst.opcode], inst.bytes.one);
         else if (inst.type == BYTES2)
-            printf("%s %xH\n", opcodes[inst.opcode], inst.bytes.two);
+            printf("%s %04xH\n", opcodes[inst.opcode], inst.bytes.two);
     }
 }
 
@@ -92,7 +92,7 @@ int fd;
 
     unsigned char ch;
     while(read(fd, &ch, 1))
-        printf("%3x ", ch);
+        printf(" %02x ", ch);
     printf("\n");
 
     lseek(fd, 0, SEEK_SET);

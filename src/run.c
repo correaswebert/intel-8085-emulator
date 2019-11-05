@@ -136,6 +136,12 @@ int main(int argc, char const *argv[])
 
     while (state == CONTINUE)
     {
+        if (next == 'c')
+        {
+            stepwise = 0;
+            system("clear");
+        }
+        
         if (stepwise)
             scanf("%c", &next);
 
@@ -173,7 +179,7 @@ int main(int argc, char const *argv[])
     {
         char saddr[5] = "";
         uint16_t haddr;
-        while (strcmp("-1", saddr))
+        while (strcmp("q", saddr))
         {
             system("clear");
             printCPU();
