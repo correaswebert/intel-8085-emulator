@@ -52,7 +52,7 @@ void increment(uint8_t *reg1, uint8_t *reg2)
     // INX
     else{
         uint16_t regpair = *reg1;
-        regpair <<= 4;
+        regpair <<= 8;
         regpair |= *reg2;
 
         regpair++;
@@ -60,7 +60,7 @@ void increment(uint8_t *reg1, uint8_t *reg2)
             isZeroSet = 1;
             
         *reg2 = (uint8_t) regpair;
-        regpair >>=4;
+        regpair >>=8;
         *reg1 = (uint8_t) regpair;
     }
 
@@ -91,7 +91,7 @@ void decrement(uint8_t *reg1, uint8_t *reg2)
     else
     {
         uint16_t regpair = *reg1;
-        regpair <<= 4;
+        regpair <<= 8;
         regpair |= *reg2;
 
         regpair--;
@@ -99,7 +99,7 @@ void decrement(uint8_t *reg1, uint8_t *reg2)
             isZeroSet = 1;
         
         *reg2 = (uint8_t) regpair;
-        regpair >>=4;
+        regpair >>=8;
         *reg1 = (uint8_t) regpair;
     }
 
