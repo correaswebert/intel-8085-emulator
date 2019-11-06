@@ -1,11 +1,11 @@
 const char *opcodes[] = {
     "NOP",      /* 0x00 */
-    "LXI B",    /* 0x01 */
+    "LXI B,",    /* 0x01 */
     "STAX B",   /* 0x02 */
     "INX B",    /* 0x03 */
     "INR B",    /* 0x04 */
     "DCR B",    /* 0x05 */
-    "MVI B",    /* 0x06 */
+    "MVI B,",    /* 0x06 */
     "RLC",      /* 0x07 */
     "",
     "DAD B",    /* 0x09 */
@@ -13,15 +13,15 @@ const char *opcodes[] = {
     "DCX B",    /* 0x0B */
     "INR C",    /* 0x0C */
     "DCR C",    /* 0x0D */
-    "MVI C",    /* 0x0E */
+    "MVI C,",    /* 0x0E */
     "RRC",      /* 0x0F */
     "",
-    "LXI D",    /* 0x11 */
+    "LXI D,",    /* 0x11 */
     "STAX D",   /* 0x12 */
     "INX D",    /* 0x13 */
     "INR D",    /* 0x14 */
     "DCR D",    /* 0x15 */
-    "MVI D",    /* 0x16 */
+    "MVI D,",    /* 0x16 */
     "RAL",      /* 0x17 */
     "",
     "DAD D",    /* 0x19 */
@@ -29,15 +29,15 @@ const char *opcodes[] = {
     "DCX D",    /* 0x1B */
     "INR E",    /* 0x1C */
     "DCR E",    /* 0x1D */
-    "MVI E",    /* 0x1E */
+    "MVI E,",    /* 0x1E */
     "RAR",      /* 0x1F */
     "RIM",      /* 0x20 */
-    "LXI H",    /* 0x21 */
+    "LXI H,",    /* 0x21 */
     "SHLD",     /* 0x22 */
     "INX H",    /* 0x23 */
     "INR H",    /* 0x24 */
     "DCR H",    /* 0x25 */
-    "MVI H",    /* 0x26 */
+    "MVI H,",    /* 0x26 */
     "DAA",      /* 0x27 */
     "",
     "DAD H",    /* 0x29 */
@@ -45,15 +45,15 @@ const char *opcodes[] = {
     "DCX H",    /* 0x2B */
     "INR L",    /* 0x2C */
     "DCR L",    /* 0x2D */
-    "MVI L",    /* 0x2E */
+    "MVI L,",    /* 0x2E */
     "CMA",      /* 0x2F */
     "SIM",      /* 0x30 */
-    "LXI SP",   /* 0x31 */
+    "LXI SP,",   /* 0x31 */
     "STA",      /* 0x32 */
     "INX SP",   /* 0x33 */
     "INR M",    /* 0x34 */
     "DCR M",    /* 0x35 */
-    "MVI M",    /* 0x36 */
+    "MVI M,",    /* 0x36 */
     "STC",      /* 0x37 */
     "",
     "DAD SP",   /* 0x39 */
@@ -61,7 +61,7 @@ const char *opcodes[] = {
     "DCX SP",   /* 0x3B */
     "INR A",    /* 0x3C */
     "DCR A",    /* 0x3D */
-    "MVI A",    /* 0x3E */
+    "MVI A,",    /* 0x3E */
     "CMC",      /* 0x3F */
     "MOV B,B",  /* 0x40 */
     "MOV B,C",  /* 0x41 */
