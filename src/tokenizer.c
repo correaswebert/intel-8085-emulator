@@ -28,7 +28,7 @@ void asm2hex(char *line, FILE *fpw)
 {
     // obtain the meta-inst (eg. LXI, MOV, STC, ...)
     char *meta_inst = strtok(line, " ");
-    printf("meta : %s\n", meta_inst);
+    // printf("meta : %s\n", meta_inst);
 
 // ------------------------------- Data  Tranfer -------------------------------
 
@@ -181,24 +181,46 @@ void asm2hex(char *line, FILE *fpw)
         char *reg = strtok(NULL, " ");
         uint8_t data = toHex(strtok(NULL, " "));
         
-        if (!strcmp(reg, "A,")) {
-            fprintf(fpw, "%hu", 0x3E00 | data);
-            printf("In '%s' %x\n", reg, 0x3E00 | data);
+        if (!strcmp(reg, "A,"))
+        {
+            fprintf(fpw, "%c", 0x3E);
+            fprintf(fpw, "%c", data);
         }
         else if (!strcmp(reg, "B,"))
-            fprintf(fpw, "%hu", 0x0600 | data);
+        {
+            fprintf(fpw, "%c", 0x06);
+            fprintf(fpw, "%c", data);
+        }
         else if (!strcmp(reg, "C,"))
-            fprintf(fpw, "%hu", 0x0E00 | data);
+        {
+            fprintf(fpw, "%c", 0x0E);
+            fprintf(fpw, "%c", data);
+        }
         else if (!strcmp(reg, "D,"))
-            fprintf(fpw, "%hu", 0x1600 | data);
+        {
+            fprintf(fpw, "%c", 0x16);
+            fprintf(fpw, "%c", data);
+        }
         else if (!strcmp(reg, "E,"))
-            fprintf(fpw, "%hu", 0x1E00 | data);
+        {
+            fprintf(fpw, "%c", 0x1E);
+            fprintf(fpw, "%c", data);
+        }
         else if (!strcmp(reg, "H,"))
-            fprintf(fpw, "%hu", 0x2600 | data);
+        {
+            fprintf(fpw, "%c", 0x26);
+            fprintf(fpw, "%c", data);
+        }
         else if (!strcmp(reg, "L,"))
-            fprintf(fpw, "%hu", 0x2E00 | data);
+        {
+            fprintf(fpw, "%c", 0x2E);
+            fprintf(fpw, "%c", data);
+        }
         else if (!strcmp(reg, "M,"))
-            fprintf(fpw, "%hu", 0x3600 | data);
+        {
+            fprintf(fpw, "%c", 0x36);
+            fprintf(fpw, "%c", data);
+        }
         
         else
         {
@@ -1069,7 +1091,7 @@ int main(int argc, char const *argv[])
     char line[20];
     while (fgets(line, 20, fpr))
     {
-        printf("%s\n", line);
+        // printf("%s\n", line);
         asm2hex(line, fpw);
     }
 
