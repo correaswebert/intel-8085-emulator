@@ -29,12 +29,14 @@ int toHex(const char *string)
 }
 
 int main(int argc, char *argv[]) {
-    int fd;
-    if (argc == 2)
-        fd = open(argv[1], O_WRONLY|O_CREAT);
-    else
-        fd = open("/home/swebert/Documents/correaswebert/8085-Simulator/codes/code.asm", O_WRONLY|O_CREAT, S_IRUSR|S_IWUSR);
+    if (argc < 2)
+    {
+        errno = EINVAL;
+        perror("bad arguments");
+        return errno;
+    }
 
+    int fd = open(argv[1], O_WRONLY|O_CREAT);
     if (fd == -1) {
         perror("open failed");
         return errno;

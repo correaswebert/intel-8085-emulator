@@ -9,9 +9,9 @@
 #include <string.h>
 #include <math.h>
 
-#include "src/getNumberOfBytes.c"
-#include "include/hex2mneumonic.h"
-#include "include/instruction_struct.h"
+#include "getNumberOfBytes.c"
+#include "hex2mneumonic.h"
+#include "instruction_struct.h"
 
 
 int toHex(const char *string)
@@ -79,12 +79,14 @@ int printInstruction(int fd, int prog_addr)
 }
 
 int main(int argc, char *argv[]) {
-int fd;
-    if (argc > 1)
-        fd = open(argv[1], O_RDONLY);
-    else
-        fd = open("/home/swebert/Documents/correaswebert/8085-Simulator/codes/code.asm", O_RDONLY);
-    
+    if (argc < 2)
+    {
+        errno = EINVAL;
+        perror("bad arguments");
+        return errno;
+    }
+
+    int fd = open(argv[1], O_RDONLY);
     if (fd == -1) {
         perror("open failed");
         return errno;

@@ -77,12 +77,12 @@ void loadCode(int fd, uint16_t prog_addr)
         }
 
         // display the instruction being loaded...
-        if (type == BYTES0)
-            printf("\t0x%04x:  %02x\n", prog_addr - 1, opcode);
-        else if (type == BYTES1)
-            printf("\t0x%04x:  %02x  %02x\n", prog_addr - 2, opcode, one);
-        else if (type == BYTES2)
-            printf("\t0x%04x:  %02x  %02x  %02x\n", prog_addr - 3, opcode, two & 0xff, (two >> 8) & 0xff);
-        scanf("%c", &next);
+        // if (type == BYTES0)
+        //     printf("\t0x%04x:  %02x\n", prog_addr - 1, opcode);
+        // else if (type == BYTES1)
+        //     printf("\t0x%04x:  %02x  %02x\n", prog_addr - 2, opcode, one);
+        // else if (type == BYTES2)
+        //     printf("\t0x%04x:  %02x  %02x  %02x\n", prog_addr - 3, opcode, two & 0xff, (two >> 8) & 0xff);
+        // scanf("%c", &next);
     }
 }
