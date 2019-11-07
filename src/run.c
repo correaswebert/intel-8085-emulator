@@ -55,22 +55,46 @@ int main(int argc, char const *argv[])
         return errno;
     }
     
-    int fd = open(argv[1], O_RDONLY);
-    // if (argv[1][0] == '-')
-    //     fd = 0;
-    // else
-    //     fd = open(argv[1], O_RDONLY);
-    
-    if (fd == -1)
-    {
-        perror("open failed");
-        return errno;
-    }
-    
+
     char next;
     instruction inst;
     uint8_t state = CONTINUE;
     memory = (uint8_t *) malloc(65536);
+
+    uint16_t prog_cntr;
+    // printf("%s %04x", argv[2], toHex(argv[2]));
+    // if (argv[2][0] == '-')
+    //     prog_cntr = 0x0000;
+    // else
+    //     prog_cntr = atoi(argv[2]);
+
+    char go;
+
+    int fd, num_files = (argc - 1) / 2, i = 1;
+    printf("argc %d num_files %d\n", argc, num_files);
+    scanf("%c", &go);
+    while (i <= num_files)
+    {
+        printf("Loading %s @ %s - %d...\n", argv[2*i - 1], argv[2*i], i);
+    scanf("%c", &next);
+        fd = open(argv[2*i - 1], O_RDONLY);
+        // if (argv[1][0] == '-')
+        //     fd = 0;
+        // else
+        //     fd = open(argv[1], O_RDONLY);
+        
+        if (fd == -1)
+        {
+            perror("open failed");
+            return errno;
+        }
+
+        prog_cntr = toHex(argv[2*i]);
+        loadCode(fd, prog_cntr);
+        printf("Code loaded!\n\n");
+        i++;
+    }
+    scanf("%c", &next);
     
     system("clear");
     printf("Do you want to initialize memory with data? (0/1)\n>>> ");
@@ -109,21 +133,10 @@ int main(int argc, char const *argv[])
             memory[hexAddr] = toHex(strData);
         }
     }
-
-    uint16_t prog_cntr = toHex(argv[2]);
-    // printf("%s %04x", argv[2], toHex(argv[2]));
-    // if (argv[2][0] == '-')
-    //     prog_cntr = 0x0000;
-    // else
-    //     prog_cntr = atoi(argv[2]);
     
     system("clear");
     printf("Intializing CPU...\n");
     printCPU();
-
-    printf("Loading code...\n");
-    loadCode(fd, prog_cntr);
-    printf("Code loaded!\n\n");
 
     // uint8_t hexcode;
     // uint16_t prog_addr = prog_cntr;

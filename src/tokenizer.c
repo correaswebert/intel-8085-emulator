@@ -174,7 +174,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - MOV\n");
         }
     }
 
@@ -226,7 +226,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - MVI\n");
         }   
     }
 
@@ -262,7 +262,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - LXI\n");
         }
         
     }
@@ -304,12 +304,12 @@ void asm2hex(char *line, FILE *fpw)
         char *reg = strtok(NULL, " ");
         if (!strcasecmp(reg, "B"))
             fprintf(fpw, "%c", 0x0A);
-        else if (!strcasecmp(reg, "C"))
+        else if (!strcasecmp(reg, "D"))
             fprintf(fpw, "%c", 0x1A);
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - LDAX\n");
         }
     }
 
@@ -318,12 +318,12 @@ void asm2hex(char *line, FILE *fpw)
         char *reg = strtok(NULL, " ");
         if (!strcasecmp(reg, "B"))
             fprintf(fpw, "%c", 0x02);
-        else if (!strcasecmp(reg, "C"))
+        else if (!strcasecmp(reg, "D"))
             fprintf(fpw, "%c", 0x12);
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - STAX\n");
         }
     }
 
@@ -355,7 +355,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - ADD\n");
         }
         
     }
@@ -382,7 +382,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - ADC\n");
         }
         
     }
@@ -409,7 +409,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - SUB\n");
         }
         
     }
@@ -436,7 +436,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - SBB\n");
         }
         
     }
@@ -463,7 +463,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - INR\n");
         }
         
     }
@@ -490,7 +490,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - DCR\n");
         }
         
     }
@@ -509,7 +509,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - INX\n");
         }   
     }
 
@@ -527,7 +527,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - DCX\n");
         }   
     }
 
@@ -545,7 +545,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - DAD\n");
         }   
     }
 
@@ -606,7 +606,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - ANA\n");
         }
     }
 
@@ -632,7 +632,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured -XRA\n");
         }
     }
 
@@ -658,7 +658,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - ORA\n");
         }
     }
 
@@ -684,7 +684,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - CMP\n");
         }
     }
 
@@ -1003,7 +1003,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - PUSH\n");
         }   
     }
     
@@ -1021,7 +1021,7 @@ void asm2hex(char *line, FILE *fpw)
         
         else
         {
-            printf("some error occured\n");
+            printf("Some error occured - POP\n");
         }   
     }
 
@@ -1071,14 +1071,27 @@ void asm2hex(char *line, FILE *fpw)
     {
         if (meta_inst[0] = ';')
             return;
-        printf("some error occured else\n");
+        printf("Some error occured - UKNOWN\n");
     }
 }
 
 int main(int argc, char const *argv[])
 {
-    FILE *fpr = fopen("code.asm", "r");
-    FILE *fpw = fopen("code.mc", "w");
+    int filename_size = strlen(argv[1]);
+    char w_filename[80];
+
+    // change format from .asm to .mc
+    strncpy(w_filename, argv[1], filename_size - 4);
+    w_filename[filename_size-4] = '\0';
+    strcat(w_filename, ".mc");
+
+    // printf("%s\n", w_filename);
+    // printf("%s\n", argv[1]);
+    // printf("%d\n", strlen(argv[1]));
+    // printf("%d\n", filename_size);
+    
+    FILE *fpr = fopen(argv[1], "r");
+    FILE *fpw = fopen(w_filename, "w");
 
     if (fpr == NULL)
     {
@@ -1092,9 +1105,10 @@ int main(int argc, char const *argv[])
         return errno;
     }
 
-    char line[20];
+    char line[20], next23;
     while (fgets(line, 20, fpr))
     {
+        // scanf("%c", &next23);
         // printf("%s\n", line);
         asm2hex(line, fpw);
     }
