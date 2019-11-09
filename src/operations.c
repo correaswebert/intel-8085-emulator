@@ -672,19 +672,20 @@ uint8_t performInstruction(instruction inst)
         // CMA
         case 0x2F:
             A = ~A;
+            adjustFlags(-1, -1);
             break;
         
         // CMC
         case 0x3F:
             if (F & CY_MASK)
-                updateFlags(-1, -1, -1, -1, 0);
+                adjustFlags(0, -1);
             else
-                updateFlags(-1, -1, -1, -1, 1);
+                adjustFlags(1, -1);
             break;
             
         // STC
         case 0x37:
-            updateFlags(-1, -1, -1, -1, 1);
+            adjustFlags(1, -1);
             break;
         
         // ------------------------------------------------------------------ //
@@ -886,7 +887,18 @@ uint8_t performInstruction(instruction inst)
             swap(&L, &memory[stack_ptr]);
             swap(&H, &memory[stack_ptr + 1]);
             break;
+        
+        // HLT
+        case 0x76:
+            return STOP;
+            break;
+        // NOP
+        case 0x00:
+            break;
 
+        // !!!: Next 6 are hardware based commands - not implemented
+
+        // direct accumulator value to/from given port
         case 0xD3:
             // "OUT"
             break;
@@ -901,16 +913,8 @@ uint8_t performInstruction(instruction inst)
         case 0xFB:
             // "EI"
             break;
-        
-        // HLT
-        case 0x76:
-            return STOP;
-            break;
-        // NOP
-        case 0x00:
-            break;
 
-        // Read/Set Interrupt Mask (https://www.tutorialspoint.com/sim-and-rim-instructions-in-8085)
+        // Read/Set Interrupt Mask
         case 0x20:
             // "RIM"
             break;
