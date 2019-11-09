@@ -1,4 +1,5 @@
 #include <string.h>
+#include <strings.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -30,7 +31,6 @@ void asm2hex(char *line, FILE *fpw)
 {
     // obtain the meta-inst (eg. LXI, MOV, STC, ...)
     char *meta_inst = strtok(line, " ");
-    // printf("meta : %s\n", meta_inst);
 
 // ------------------------------- Data  Tranfer -------------------------------
 
@@ -890,76 +890,31 @@ void asm2hex(char *line, FILE *fpw)
 
 
     else if (!strcasecmp(meta_inst, "RET"))
-    {
-        uint16_t addr = toHex(strtok(NULL, " "));
         fprintf(fpw, "%c", 0xC9);
-        fprintf(fpw, "%c", addr);
-        fprintf(fpw, "%c", addr >> 8);
-    }
 
     else if (!strcasecmp(meta_inst, "RNZ"))
-    {
-        uint16_t addr = toHex(strtok(NULL, " "));
         fprintf(fpw, "%c", 0xC0);
-        fprintf(fpw, "%c", addr);
-        fprintf(fpw, "%c", addr >> 8);
-    }
 
     else if (!strcasecmp(meta_inst, "RZ"))
-    {
-        uint16_t addr = toHex(strtok(NULL, " "));
         fprintf(fpw, "%c", 0xC8);
-        fprintf(fpw, "%c", addr);
-        fprintf(fpw, "%c", addr >> 8);
-    }
 
     else if (!strcasecmp(meta_inst, "RNC"))
-    {
-        uint16_t addr = toHex(strtok(NULL, " "));
         fprintf(fpw, "%c", 0xD0);
-        fprintf(fpw, "%c", addr);
-        fprintf(fpw, "%c", addr >> 8);
-    }
 
     else if (!strcasecmp(meta_inst, "RC"))
-    {
-        uint16_t addr = toHex(strtok(NULL, " "));
         fprintf(fpw, "%c", 0xD8);
-        fprintf(fpw, "%c", addr);
-        fprintf(fpw, "%c", addr >> 8);
-    }
 
     else if (!strcasecmp(meta_inst, "RPE"))
-    {
-        uint16_t addr = toHex(strtok(NULL, " "));
         fprintf(fpw, "%c", 0xE8);
-        fprintf(fpw, "%c", addr);
-        fprintf(fpw, "%c", addr >> 8);
-    }
 
     else if (!strcasecmp(meta_inst, "RPO"))
-    {
-        uint16_t addr = toHex(strtok(NULL, " "));
         fprintf(fpw, "%c", 0xE0);
-        fprintf(fpw, "%c", addr);
-        fprintf(fpw, "%c", addr >> 8);
-    }
 
     else if (!strcasecmp(meta_inst, "RP"))
-    {
-        uint16_t addr = toHex(strtok(NULL, " "));
         fprintf(fpw, "%c", 0xF0);
-        fprintf(fpw, "%c", addr);
-        fprintf(fpw, "%c", addr >> 8);
-    }
 
     else if (!strcasecmp(meta_inst, "RM"))
-    {
-        uint16_t addr = toHex(strtok(NULL, " "));
         fprintf(fpw, "%c", 0xF8);
-        fprintf(fpw, "%c", addr);
-        fprintf(fpw, "%c", addr >> 8);
-    }
 
 
     else if (!strcasecmp(meta_inst, "RST0"))
@@ -1069,7 +1024,7 @@ void asm2hex(char *line, FILE *fpw)
 
     else
     {
-        if (meta_inst[0] = ';')
+        if (meta_inst[0] == ';')
             return;
         printf("Some error occured - UKNOWN\n");
     }
@@ -1084,11 +1039,6 @@ int main(int argc, char const *argv[])
     strncpy(w_filename, argv[1], filename_size - 4);
     w_filename[filename_size-4] = '\0';
     strcat(w_filename, ".mc");
-
-    // printf("%s\n", w_filename);
-    // printf("%s\n", argv[1]);
-    // printf("%d\n", strlen(argv[1]));
-    // printf("%d\n", filename_size);
     
     FILE *fpr = fopen(argv[1], "r");
     FILE *fpw = fopen(w_filename, "w");
@@ -1105,13 +1055,9 @@ int main(int argc, char const *argv[])
         return errno;
     }
 
-    char line[20], next23;
-    while (fgets(line, 20, fpr))
-    {
-        // scanf("%c", &next23);
-        // printf("%s\n", line);
+    char line[80];
+    while (fgets(line, 80, fpr))
         asm2hex(line, fpw);
-    }
 
     fclose(fpw);
     fclose(fpr);

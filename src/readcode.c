@@ -94,17 +94,12 @@ int main(int argc, char *argv[]) {
 
     unsigned char ch;
     while(read(fd, &ch, 1))
-        printf(" %02x ", ch);
-    printf("\n");
-
-    lseek(fd, 0, SEEK_SET);
-
-    while (read(fd, &ch, 1))
-        printf("%3d ", ch);
-    printf("\n");
+        printf("%02x ", ch);
+    printf("\n\n");
 
     lseek(fd, 0, SEEK_SET);
     
+    // if address provided, start from there, else from 0000H
     if (argc == 3)
         printInstruction(fd, toHex(argv[2]));
     else

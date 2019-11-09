@@ -43,14 +43,26 @@ void loadCode(int fd, uint16_t prog_addr)
 {
     prog_cntr = prog_addr;
     
-    uint8_t opcode, type, one;
+    uint8_t opcode = 0, type, one;
     uint16_t two;
 
-    while (opcode != 0x76)
+    while (
+        opcode != 0x76 &&   /* HLT */
+        opcode != 0xC9 &&   /* RET */
+        opcode != 0xC0 &&   /* RNZ */
+        opcode != 0xC8 &&   /* RZ  */
+        opcode != 0xD0 &&   /* RNC */
+        opcode != 0xD8 &&   /* RC  */
+        opcode != 0xE8 &&   /* RPE */
+        opcode != 0xE0 &&   /* RPO */
+        opcode != 0xF0 &&   /* RP  */
+        opcode != 0xF8      /* RM  */
+    )
     {
         /* read opcode (1byte) */
         read(fd, &opcode, 1);
         memory[prog_addr++] = opcode;
+        printf("%02x ", opcode);
 
         /* if opcode is invalid, set type to ERR */
         type = numberBytesToRead(opcode);
@@ -61,17 +73,21 @@ void loadCode(int fd, uint16_t prog_addr)
             case BYTES1:
                 read(fd, &one, 1);
                 memory[prog_addr++] = one;
+                printf("%02x ", one);
                 break;
             
             case BYTES2:
                 read(fd, &two, 2);
                 memory[prog_addr++] = two >> 8;
                 memory[prog_addr++] = two;
+                printf("%02x ", two);
                 break;
             
             /* BYTES0 and ERR do nothing */
             default:
                 break;
         }
+
+        printf("\n");
     }
 }

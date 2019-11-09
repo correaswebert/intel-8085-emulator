@@ -108,6 +108,7 @@ int main(int argc, char const *argv[])
         loadCode(fd, prog_cntr);
         i++;
     }
+    scanf("%c", &next);
     
     
 
