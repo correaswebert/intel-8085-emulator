@@ -22,12 +22,15 @@ $(BIN)/$(TARGET): src/* rc cc
 $(BUILD)/%.o: $(SRC)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# write code (in hex)
 wc: src/writecode.c
 	$(CC) $(CFLAGS) $^ -lm -o $(BIN)/$@
 
+# read code (in hex and asm)
 rc: src/readcode.c
 	$(CC) $(CFLAGS) $^ -lm -o $(BIN)/$@
 
+# convert asm to hex
 cc: src/tokenizer.c
 	$(CC) $(CFLAGS) $^ -lm -o $(BIN)/$@
 
@@ -35,4 +38,4 @@ cc: src/tokenizer.c
 .PHONY: clean
 
 clean:
-	rm -f build/*.o bin/*
+	rm -f build/*.o bin/* codes/*.mc

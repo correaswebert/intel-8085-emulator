@@ -1,3 +1,0 @@
-- how is recursion handled
-SP stores only one address location of return at a time
-in case of recursion, multiple return locations are to be saved
