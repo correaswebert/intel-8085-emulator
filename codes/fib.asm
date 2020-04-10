@@ -1,0 +1,13 @@
+LXI H, C000H 
+MVI A, 00H 
+MVI B, 01H 
+MVI C, 0AH 
+MOV D,B    ;0009
+ADD B 
+MOV B,a  
+MOV A,D 
+MOV M,A 
+INX H 
+DCR C 
+JNZ 0009H 
+HLT 
