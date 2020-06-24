@@ -15,7 +15,7 @@ CFLAGS = -I$(INC) -std=c11
 
 # $@ evaluates to 'target' bin/main $(BIN)/$(TARGET)
 # $^ evaluates to 'dependency' $(OBJECT)
-$(BIN)/$(TARGET): src/* rc cc
+$(BIN)/$(TARGET): $(OBJECT) rc cc
 	$(CC) $(CFLAGS) -o $@ src/run.c -lm
 
 # $< evaluates to first name in 'dependencies' $(SRC)/%.c
