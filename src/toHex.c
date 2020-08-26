@@ -1,3 +1,6 @@
+#include <math.h>
+#include <string.h>
+
 int toHex(const char *string)
 {
     int len = strlen(string), num = 0, i = len;
